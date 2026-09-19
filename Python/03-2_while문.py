@@ -29,18 +29,52 @@
 #         print("커피가 다 떨어졌습니다. 판매를 중지합니다")
 #         break
 
-coffee = 10
-while True:
-    money = int(input("돈을 넣어주세요: "))
-    if money == 300:
-        print("커피를 줍니다")
-        coffee-=1
-    elif money > 300:
-        print(f"거스름돈 {money - 300}을 주고 커피를 줍니다")
-        coffee -= 1
-    else:
-        print(f"돈을 다시 돌려주고 커피를 주지 않습니다")
-        print(f"남은 커피의 양은 {coffee}개입니다")
-    if coffee == 0:
-        print("커피가 다 떨어졌습니다. 판매를 중지합니다")
-        break
+# coffee = 10
+# while True:
+#     money = int(input("돈을 넣어주세요: "))
+#     if money == 300:
+#         print("커피를 줍니다")
+#         coffee-=1
+#     elif money > 300:
+#         print(f"거스름돈 {money - 300}을 주고 커피를 줍니다")
+#         coffee -= 1
+#     else:
+#         print(f"돈을 다시 돌려주고 커피를 주지 않습니다")
+#         print(f"남은 커피의 양은 {coffee}개입니다")
+#     if coffee == 0:
+#         print("커피가 다 떨어졌습니다. 판매를 중지합니다")
+#         break
+
+# a = 0
+# while a < 10:
+#     a += 1
+#     if a % 2 == 0:
+#         continue
+#     print(a)
+
+# while True:
+#     print("Ctrl + C를 눌러야 while문을 빠져나갈 수 있습니다.")
+
+# count = 0
+# while count < 3:
+#     print(f"카운트: {count}")
+#     count+=1
+# else:
+#     print("while 문이 정상 종료되었습니다.")
+
+# count = 0
+# while count < 5:
+#     if count == 2:
+#         break
+#     print(f"카운트: {count}")
+#     count+=1
+# else:
+#     print("while 문이 정상 종료되었습니다.")
+
+i = 2
+while i <= 3:
+    j = 1
+    while j <= 9:
+        print(f"{i} x {j} = {i * j}")
+        j += 1
+    i += 1

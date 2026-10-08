@@ -1,9 +1,9 @@
 <script>
 import moment from "moment/min/moment-with-locales";
-import { push } from "svelte-spa-router";
+import { link, push } from "svelte-spa-router";
 import Error from "../components/Error.svelte";
 import fastapi from "../lib/api";
-import { is_login } from "../lib/store";
+import { is_login, username } from "../lib/store";
 moment.locale("ko")
 
     export let params = {}
@@ -50,6 +50,11 @@ moment.locale("ko")
                     <div class="mb-2">{question.user ? question.user.username : ""}</div>
                     <div>{moment(question.create_date).format("YYYY년 MM월 DD일 hh:mm a")}</div>
                 </div>
+            </div>
+            <div class="my-3">
+                {#if question.user && $username === question.user.username}
+                <a use:link href="/question-modify/{question.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+                {/if}
             </div>
         </div>
     </div>

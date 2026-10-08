@@ -1,0 +1,29 @@
+from datetime import datetime
+
+from domain.question.question_schema import QuestionCreate
+from models import Question, User
+from sqlalchemy.orm import Session
+
+# 질문 목록 조회
+def get_question_list(db: Session, skip: int = 0, limit: int = 10):
+    # 조회 조건 만들기
+    _question_list = db.query(Question).order_by(Question.create_date.desc())
+    # 전체 질문 갯수 구하기
+    total = _question_list.count()
+    # 해당 페이지의 질문만 가져오기
+    question_list = _question_list.offset(skip).limit(limit).all()
+    return total, question_list
+
+# 질문 상세 조회
+def get_question(db: Session, question_id: int):
+    question = db.query(Question).get(question_id)
+    return question
+
+# 질문 등록
+def create_question(db: Session, question_create: QuestionCreate, user: User):
+    db_question = Question(subject=question_create.subject,
+                           content=question_create.content,
+                           create_date=datetime.now(),
+                           user=user)
+    db.add(db_question)
+    db.commit()

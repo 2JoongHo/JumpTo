@@ -17,3 +17,18 @@ class Answer(BaseModel):
     content: str
     create_date: datetime.datetime
     user: User | None
+    question_id: int
+    modify_date: datetime.datetime | None = None
+    voter: list[User] = []
+
+# 답변 수정
+class AnswerUpdate(AnswerCreate):
+    answer_id: int
+
+# 답변 추천
+class AnswerVote(BaseModel):
+    answer_id: int
+
+# 답변 삭제
+class AnswerDelete(BaseModel):
+    answer_id: int

@@ -55,7 +55,7 @@ const fastapi = (
           if (success_callback) {
             success_callback(json);
           }
-        } else if (operaion !== "login" && response.status == 401) {
+        } else if (operation !== "login" && response.status == 401) {
           access_token.set("");
           username.set("");
           is_login.set(false);

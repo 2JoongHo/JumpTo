@@ -42,3 +42,16 @@ def update_question(db: Session,
     db_question.modify_date = datetime.now()
     db.add(db_question)
     db.commit()
+
+# 질문 삭제
+def delete_question(db: Session,
+                    db_question: Question):
+    db.delete(db_question)
+    db.commit()
+
+# 질문 추천
+def vote_question(db: Session,
+                  db_question: Question,
+                  db_user: User):
+    db_question.voter.append(db_user)
+    db.commit()

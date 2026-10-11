@@ -12,6 +12,8 @@ class Question(BaseModel):
     create_date: datetime.datetime
     answers: list[Answer] = []
     user: User | None
+    modify_date: datetime.datetime | None = None
+    voter: list[User] = [] # 추천인 항목
 
 # 질문 등록
 class QuestionCreate(BaseModel):
@@ -30,4 +32,12 @@ class QuestionList(BaseModel):
 
 # 질문 수정
 class QuestionUpdate(QuestionCreate):
+    question_id: int
+
+# 질문 삭제
+class QuestionDelete(BaseModel):
+    question_id: int
+
+# 질문 추천
+class QuestionVote(BaseModel):
     question_id: int

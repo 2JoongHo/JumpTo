@@ -17,9 +17,9 @@
     "/user-login": UserLogin,
     "/question-modify/:question_id": QuestionModify,
     "/answer-modify/:answer_id": AnswerModify,
-  }
+  };
 </script>
 
 <Navigation />
 
-<Router {routes}/>
+<Router {routes} />

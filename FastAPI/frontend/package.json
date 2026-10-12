@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
+    "marked": "^18.1.0",
     "moment": "^2.31.0",
     "qs": "^6.16.0",
     "svelte-spa-router": "^5.1.1"

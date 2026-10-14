@@ -1,20 +1,34 @@
 from datetime import datetime
 
 from domain.question.question_schema import QuestionCreate, QuestionUpdate
-from models import Question, User
+from sqlalchemy import and_
+from models import Question, User, Answer
 from sqlalchemy.orm import Session
 
 # 질문 목록 조회
 def get_question_list(db: Session,
                       skip: int = 0,
-                      limit: int = 10):
-    # 조회 조건 만들기
-    _question_list = db.query(Question).order_by(Question.create_date.desc())
-    # 전체 질문 갯수 구하기
-    total = _question_list.count()
-    # 해당 페이지의 질문만 가져오기
-    question_list = _question_list.offset(skip).limit(limit).all()
-    return total, question_list
+                      limit: int = 10,
+                      keyword: str = ""):
+    question_list = db.query(Question)
+    if keyword:
+        search = '%%{}%%'.format(keyword)
+        sub_query = db.query(Answer.question_id, Answer.content, User.username) \
+            .outerjoin(User, and_(Answer.user_id == User.id)).subquery()
+        question_list = question_list \
+            .outerjoin(User) \
+            .outerjoin(sub_query, and_(sub_query.c.question_id == Question.id)) \
+            .filter(Question.subject.ilike(search) |        # 질문제목
+                    Question.content.ilike(search) |        # 질문내용
+                    User.username.ilike(search) |           # 질문작성자
+                    sub_query.c.content.ilike(search) |     # 답변내용
+                    sub_query.c.username.ilike(search)      # 답변작성자
+                    )
+    total = question_list.distinct().count()
+    question_list = question_list.order_by(Question.create_date.desc())\
+        .offset(skip).limit(limit).distinct().all()
+    return total, question_list  # (전체 건수, 페이징 적용된 질문 목록)
+
 
 # 질문 상세 조회
 def get_question(db: Session,

@@ -3,6 +3,10 @@
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from starlette.config import Config
+
+config = Config(".env")
+SQLALCHEMY_DATABASE_URL = config('SQLALCHEMY_DATABASE_URL')
 
 # 데이터베이스 접속 주소
 SQLALCHEMY_DATABASE_URL = "sqlite:///./myapi.db"
